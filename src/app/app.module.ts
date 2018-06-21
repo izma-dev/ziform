@@ -17,6 +17,7 @@ import { DemoMaterialModule} from './demo-material-module';
 
 import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
+import { BuilderComponent } from './ziform/builder/builder.component';
 
 @NgModule({
   declarations: [
@@ -24,17 +25,18 @@ import { SpinnerComponent } from './shared/spinner.component';
     FullComponent,
     AppHeaderComponent,
     SpinnerComponent,
-    AppSidebarComponent  
+    AppSidebarComponent,
+    BuilderComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     DemoMaterialModule,
     FormsModule,
-    FlexLayoutModule,  
+    FlexLayoutModule,
     HttpClientModule,
-    SharedModule,  
-    RouterModule.forRoot(AppRoutes)  
+    SharedModule,
+    RouterModule.forRoot(AppRoutes)
   ],
   providers: [
   {

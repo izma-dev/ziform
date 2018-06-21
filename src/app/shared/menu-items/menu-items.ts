@@ -9,6 +9,7 @@ export interface Menu {
 
 const MENUITEMS = [
     {state: 'starter', name: 'Starter Page', type: 'link', icon: 'av_timer' },
+  /*
     {state: 'button', type: 'link', name: 'Buttons', icon: 'crop_7_5'},
     {state: 'grid', type: 'link', name: 'Grid List', icon: 'view_comfy'},
     {state: 'lists', type: 'link', name: 'Lists', icon: 'view_list'},
@@ -25,8 +26,9 @@ const MENUITEMS = [
     {state: 'snackbar', type: 'link', name: 'Snackbar', icon: 'adb'},
     {state: 'slider', type: 'link', name: 'Slider', icon: 'developer_mode'},
     {state: 'slide-toggle', type: 'link', name: 'Slide Toggle', icon: 'all_inclusive'},
-    
-]; 
+    */
+
+];
 
 @Injectable()
 
