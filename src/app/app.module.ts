@@ -14,10 +14,12 @@ import { AppHeaderComponent } from './layouts/full/header/header.component';
 import { AppSidebarComponent } from './layouts/full/sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DemoMaterialModule} from './demo-material-module';
-
 import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
-import { BuilderComponent } from './ziform/builder/builder.component';
+import { ZiformModule } from  './ziform/ziform.module';
+import { BuilderComponent } from './ziform/builder.component';
+
+
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import { BuilderComponent } from './ziform/builder/builder.component';
     FlexLayoutModule,
     HttpClientModule,
     SharedModule,
+    ZiformModule,
     RouterModule.forRoot(AppRoutes)
   ],
   providers: [
