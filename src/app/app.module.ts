@@ -16,9 +16,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DemoMaterialModule} from './demo-material-module';
 import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
-import { ZiformModule } from  './ziform/ziform.module';
-import { BuilderComponent } from './ziform/builder.component';
-
 
 
 @NgModule({
@@ -27,8 +24,7 @@ import { BuilderComponent } from './ziform/builder.component';
     FullComponent,
     AppHeaderComponent,
     SpinnerComponent,
-    AppSidebarComponent,
-    BuilderComponent
+    AppSidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +34,6 @@ import { BuilderComponent } from './ziform/builder.component';
     FlexLayoutModule,
     HttpClientModule,
     SharedModule,
-    ZiformModule,
     RouterModule.forRoot(AppRoutes)
   ],
   providers: [

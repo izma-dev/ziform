@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { DemoMaterialModule} from '../demo-material-module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { StarterComponent } from './starter.component';
-import { StarterRoutes } from './starter.routing';
+import { BuilderComponent } from './builder/builder.component';
+import { ZiformRoutes } from './ziform.routing';
 
 @NgModule({
   imports: [
     CommonModule,
     DemoMaterialModule,
       FlexLayoutModule,
-    RouterModule.forChild(StarterRoutes)
+    RouterModule.forChild(ZiformRoutes)
   ],
-  declarations: [ StarterComponent ]
+  declarations: [BuilderComponent]
 })
-
-export class StarterModule {}
+export class ZiformModule { }
