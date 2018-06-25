@@ -8,5 +8,5 @@ import {FormControl, Validators} from '@angular/forms';
   styleUrls: ['./builder.component.css']
 })
 export class BuilderComponent implements AfterViewInit {
-  ngAfterViewInit(){}   
+  ngAfterViewInit(){}
 }

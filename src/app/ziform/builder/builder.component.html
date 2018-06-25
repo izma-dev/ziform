@@ -1,20 +1,12 @@
 <!-- ============================================================== -->
 <!-- Simple four boxes Row -->
 <!-- ============================================================== -->
-<div fxLayout="row" fxLayoutWrap="wrap">
+<div fxLayout="row" >
   <!-- column -->
   <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
       <mat-card>
-          <mat-card-content>
-              <!-- Row -->
-              <div fxLayout="row" fxLayoutWrap="wrap">
-                  <!-- column -->
-                  <div fxFlex.gt-sm="50" fxFlex.gt-xs="50">
-                    <p>
-                      builder works!
-                    </p>
-                  </div>
-              </div>
+          <mat-card-content style="flex: 1 1 100%;min-height:100vh; background-color:yellow">
+              <app-section></app-section>
           </mat-card-content>
       </mat-card>
   </div>

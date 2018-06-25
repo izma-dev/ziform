@@ -5,6 +5,7 @@ import { DemoMaterialModule} from '../demo-material-module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BuilderComponent } from './builder/builder.component';
 import { ZiformRoutes } from './ziform.routing';
+import { SectionComponent } from './section/section.component';
 
 @NgModule({
   imports: [
@@ -13,6 +14,6 @@ import { ZiformRoutes } from './ziform.routing';
       FlexLayoutModule,
     RouterModule.forChild(ZiformRoutes)
   ],
-  declarations: [BuilderComponent]
+  declarations: [BuilderComponent, SectionComponent]
 })
 export class ZiformModule { }
