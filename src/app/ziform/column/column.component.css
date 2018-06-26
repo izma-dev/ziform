@@ -1,0 +1,8 @@
+:host {
+  width: 50%;
+  margin: 4px;
+  flex: 1 1 100%;
+  min-height:10vh;
+  border: 2px dashed #6100e170;
+  padding: 4px;
+}

@@ -1,0 +1,10 @@
+:host{
+
+}
+.row{
+  flex: 1 1 100%;
+  min-height:10vh;
+  border: 2px dashed #e1000045;
+  margin: 4px;
+  padding: 4px;
+}
