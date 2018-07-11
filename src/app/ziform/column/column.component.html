@@ -1,4 +1,22 @@
 <!-- column -->
-<div>
-
+<!--<div ng-right-click="rightClick()">-->
+<div  >
+  <div [shAttachMenu]="menu" [shMenuData]="data">Right Click Me</div>
 </div>
+
+
+
+<sh-context-menu #menu>
+  <ng-template shContextMenuItem let-data [subMenu]="nestedMenu">
+    <div>
+      Menu Item - {{data.label}}
+    </div>
+  </ng-template>
+  <sh-context-menu #nestedMenu>
+    <ng-template shContextMenuItem let-data>
+      <div>
+        Menu Item - {{data.label}}
+      </div>
+    </ng-template>
+  </sh-context-menu>
+</sh-context-menu>
