@@ -18,6 +18,9 @@ import {ShContextMenuModule} from 'ng2-right-click-menu';
     ShContextMenuModule,
     RouterModule.forChild(ZiformRoutes)
   ],
+  entryComponents: [
+    SectionComponent
+  ],
   declarations: [BuilderComponent, SectionComponent, RowComponent, ColumnComponent]
 })
 export class ZiformModule { }

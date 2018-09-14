@@ -16,6 +16,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DemoMaterialModule} from './demo-material-module';
 import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
+import {SectionComponent} from "./ziform/section/section.component";
+import {ZiformModule} from "./ziform/ziform.module";
 
 
 

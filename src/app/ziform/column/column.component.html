@@ -13,8 +13,8 @@
   </ng-template>
 
   <sh-context-menu #nestedMenu1>
-    <ng-template shContextMenuItem *ngFor="let item of data.secondLevel.insert" >
-      <div>
+    <ng-template shContextMenuItem *ngFor="let item of data.secondLevel.insert">
+      <div (click)="onClick($event,item.id)" >
         {{item.label}}
       </div>
     </ng-template>
@@ -28,7 +28,7 @@
 
   <sh-context-menu #nestedMenu2>
     <ng-template shContextMenuItem *ngFor="let item of data.secondLevel.remove" >
-      <div>
+      <div  (click)="onClick($event,item.id)">
         {{item.label}}
       </div>
     </ng-template>

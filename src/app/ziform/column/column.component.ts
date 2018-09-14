@@ -11,28 +11,23 @@ import {ShContextMenuModule} from "ng2-right-click-menu";
   templateUrl: './column.component.html',
   styleUrls: ['./column.component.css']
 })
-export class ColumnComponent {
-
-  public items = [
-    { name: 'John', otherProperty: 'Foo' },
-    { name: 'Joe', otherProperty: 'Bar' }
-  ];
+export class ColumnComponent implements OnInit {
 
   public data={
     firstLevel :[
-      { label: 'insert', cost: 12 },
-      { label: 'remove', cost: 12}
+      { label: 'insert', id: 'ID#1' },
+      { label: 'remove', id: 'ID#2'}
       ],
     secondLevel :{
       insert : [
-      { label: 'new row', cost: 12 },
-      { label: 'new column', cost: 12 },
-      { label: 'new section', cost: 12 }
+      { label: 'new row', id: 'ID#3' },
+      { label: 'new column', id: 'ID#4'},
+      { label: 'new section', id: 'ID#5' }
       ],
       remove : [
-        { label: 'selected row', cost: 12 },
-        { label: 'selected column', cost: 12 },
-        { label: 'selected section', cost: 12 }
+        { label: 'selected row', id: 'ID#6' },
+        { label: 'selected column', id: 'ID#7' },
+        { label: 'selected section', id: 'ID#8' }
       ]
     }
   };
@@ -49,10 +44,8 @@ export class ColumnComponent {
     console.log('click executed');
   }
 
-  onClick(event){
-    console.log('rightClick executed');
+  onClick(event,id){
+    console.log('rightClick on :'+id);
   }
-
-  //@ViewChild(ContextMenuComponent) public basicMenu: ContextMenuComponent;
 
 }
