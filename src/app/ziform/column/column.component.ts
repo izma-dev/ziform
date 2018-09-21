@@ -1,4 +1,4 @@
-import {Component, HostBinding, HostListener, NgModule, OnInit} from '@angular/core';
+import {Component, HostBinding, HostListener, NgModule, OnInit, ViewContainerRef} from '@angular/core';
 import {ShContextMenuModule} from "ng2-right-click-menu";
 
 
@@ -32,7 +32,7 @@ export class ColumnComponent implements OnInit {
     }
   };
 
-  constructor() { }
+  constructor(public vcRef: ViewContainerRef) { }
 
   ngOnInit() {
   }

@@ -4,6 +4,8 @@ import {
 } from '@angular/core';
 
 import {SectionComponent} from "../section/section.component";
+import {BuilderModel} from "../shared/models/builder.model";
+
 
 @Component({
   selector: 'app-builder',
@@ -13,7 +15,10 @@ import {SectionComponent} from "../section/section.component";
 
 export class BuilderComponent implements AfterViewInit, OnDestroy {
 
-  public data ={
+  private dataModel : BuilderModel;
+  public data : any = {
+    id: 'ID#BUILDER#1',
+    name: 'NAME#BUILDER#1',
     sections :[{
       id: 'ID#SECTION#1',
       name: 'NAME#SECTION#1',
@@ -69,23 +74,25 @@ export class BuilderComponent implements AfterViewInit, OnDestroy {
     read: ViewContainerRef
   }) viewContainerRef: ViewContainerRef
 
-  private insertSection(){
-    const factory = this.factoryResolver.resolveComponentFactory(SectionComponent);
-    const component = factory.create(this.viewContainerRef.parentInjector);
+/*  private insertSections(data){
+    const factory   = this.factoryResolver.resolveComponentFactory(SectionComponent);
+    const component = factory.create(this.viewContainerRef.injector);
+    component.instance.settData(data);
+    component.instance.insertRow();
     this.viewContainerRef.insert(component.hostView);
-  }
-
-  private insertRow(){
-
-  }
-
-  private insertColumn(){
-
-  }
+    return component;
+  }*/
 
   private build() {
     this.changeDetectorRef.detach();
-    this.insertSection();
+    const factory = this.factoryResolver.resolveComponentFactory(SectionComponent);
+    let vcr = this.viewContainerRef;
+    this.dataModel.sections.forEach(function(value, key) {
+      let component = factory.create(this.injector);
+      component.instance.settData(value);
+      component.instance.refresh();
+      this.insert(component.hostView);
+    },vcr);
     this.changeDetectorRef.detectChanges();
   }
 
@@ -96,6 +103,7 @@ export class BuilderComponent implements AfterViewInit, OnDestroy {
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
      @Inject(ComponentFactoryResolver) private factoryResolver) {
+    this.dataModel = new BuilderModel().setData(this.data);
   }
 
   ngOnDestroy(): void {

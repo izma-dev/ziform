@@ -1,9 +1,7 @@
 <!-- Column Old Menu Module  -->
 <div [shAttachMenu]="menu" [shMenuData]="data">
-  <div >Column</div>
+  <div #column></div>
 </div>
-
-
 
 <sh-context-menu #menu>
   <ng-template shContextMenuItem [subMenu]="nestedMenu1">
