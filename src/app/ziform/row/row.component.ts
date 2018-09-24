@@ -12,7 +12,7 @@ import {RowModel} from "../shared/models/row.model";
 })
 export class RowComponent implements OnInit {
 
-  @ViewChild('column', {
+  @ViewChild('row', {
     read: ViewContainerRef
   }) vcRef: ViewContainerRef
 

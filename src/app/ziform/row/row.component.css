@@ -1,7 +1,11 @@
+
 :host{
 
 }
+
 .row{
+  display: flex;
+  place-content: center space-around;
   flex: 1 1 100%;
   min-height:10vh;
   border: 2px dashed #e1000045;

@@ -62,6 +62,26 @@ export class BuilderComponent implements AfterViewInit, OnDestroy {
               {
                 id: 'ID#COLUMN#3',
                 name: 'NAME#COLUMN#3',
+              },
+              {
+                id: 'ID#COLUMN#4',
+                name: 'NAME#COLUMN#4',
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'ID#SECTION#3',
+        name: 'NAME#SECTION#3',
+        rows : [
+          {
+            id: 'ID#ROW#1',
+            name: 'NAME#ROW#1',
+            columns: [
+              {
+                id: 'ID#COLUMN#1',
+                name: 'NAME#COLUMN#1',
               }
             ]
           }

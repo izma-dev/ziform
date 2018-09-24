@@ -1,5 +1,6 @@
 import {Component, HostBinding, HostListener, NgModule, OnInit, ViewContainerRef} from '@angular/core';
 import {ShContextMenuModule} from "ng2-right-click-menu";
+import {ColumnModel} from "../shared/models/column.model";
 
 
 @NgModule({
@@ -31,6 +32,12 @@ export class ColumnComponent implements OnInit {
       ]
     }
   };
+
+  public dataModel : ColumnModel;
+
+  public settData(dataModel :ColumnModel){
+    this.dataModel = dataModel;
+  }
 
   constructor(public vcRef: ViewContainerRef) { }
 
