@@ -1,10 +1,12 @@
 
 import {SectionModel} from "./section.model";
+import {Subject} from "rxjs/Rx";
 
 export class BuilderModel {
   private _id : string;
   private _name : string;
   private _sections : SectionModel[] = [];
+  public dataSubject = new Subject<SectionModel[]>();
 
   constructor(){
 
@@ -34,8 +36,13 @@ export class BuilderModel {
     this._sections = value;
   }
 
-  public addSection(value : SectionModel) : number{
-    return this._sections.push(value)
+  public addSection(value : SectionModel) : void{
+    this._sections.push(value);
+    this.emitDataSubject();
+  }
+
+  public emitDataSubject() {
+    this.dataSubject.next(this._sections.slice());
   }
 
   public setData(data : any) : BuilderModel{
@@ -43,7 +50,7 @@ export class BuilderModel {
     this._name = data.name;
     for (let i = 0; i < data.sections.length; i++) {
       this._sections.push((new SectionModel()).setData(data.sections[i]));
-    };
+    }
     return this;
   }
 }

@@ -1,6 +1,7 @@
-import {Component, HostBinding, HostListener, NgModule, OnInit, ViewContainerRef} from '@angular/core';
+import {Component, Host, HostBinding, HostListener, NgModule, OnInit, ViewContainerRef} from '@angular/core';
 import {ShContextMenuModule} from "ng2-right-click-menu";
 import {ColumnModel} from "../shared/models/column.model";
+import {RowComponent} from "../row/row.component";
 
 
 @NgModule({
@@ -53,6 +54,7 @@ export class ColumnComponent implements OnInit {
 
   onClick(event,id){
     console.log('rightClick on :'+id);
+    debugger
   }
 
 }

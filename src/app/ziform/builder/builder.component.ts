@@ -5,6 +5,8 @@ import {
 
 import {SectionComponent} from "../section/section.component";
 import {BuilderModel} from "../shared/models/builder.model";
+import {DataService} from "../shared/services/data.service";
+import {Subject, Subscription} from "rxjs/Rx";
 
 
 @Component({
@@ -16,6 +18,7 @@ import {BuilderModel} from "../shared/models/builder.model";
 export class BuilderComponent implements AfterViewInit, OnDestroy {
 
   private dataModel : BuilderModel;
+  public dataSubscription: Subscription;
   public data : any = {
     id: 'ID#BUILDER#1',
     name: 'NAME#BUILDER#1',
@@ -92,16 +95,8 @@ export class BuilderComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('root', {
     read: ViewContainerRef
-  }) viewContainerRef: ViewContainerRef
+  }) viewContainerRef: ViewContainerRef;
 
-/*  private insertSections(data){
-    const factory   = this.factoryResolver.resolveComponentFactory(SectionComponent);
-    const component = factory.create(this.viewContainerRef.injector);
-    component.instance.settData(data);
-    component.instance.insertRow();
-    this.viewContainerRef.insert(component.hostView);
-    return component;
-  }*/
 
   private build() {
     this.changeDetectorRef.detach();
@@ -117,13 +112,14 @@ export class BuilderComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.build()
+    this.build();
   }
 
   constructor(
-    private changeDetectorRef: ChangeDetectorRef,
-     @Inject(ComponentFactoryResolver) private factoryResolver) {
-    this.dataModel = new BuilderModel().setData(this.data);
+      private changeDetectorRef: ChangeDetectorRef,
+      private dataService:DataService,
+      @Inject(ComponentFactoryResolver) private factoryResolver) {
+      this.dataModel = dataService.builder('ID#BUILDER#1');
   }
 
   ngOnDestroy(): void {

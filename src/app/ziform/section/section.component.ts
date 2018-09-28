@@ -16,7 +16,7 @@ export class SectionComponent implements OnInit {
 
   @ViewChild('section', {
     read: ViewContainerRef
-  }) vcRef: ViewContainerRef
+  }) vcRef: ViewContainerRef;
 
   public dataModel : SectionModel;
 

@@ -9,6 +9,7 @@ import { SectionComponent } from './section/section.component';
 import { RowComponent } from './row/row.component';
 import { ColumnComponent } from './column/column.component';
 import {ShContextMenuModule} from 'ng2-right-click-menu';
+import {DataService} from "./shared/services/data.service";
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import {ShContextMenuModule} from 'ng2-right-click-menu';
     RowComponent,
     ColumnComponent
   ],
+  providers: [DataService],
   declarations: [BuilderComponent, SectionComponent, RowComponent, ColumnComponent]
 })
 export class ZiformModule { }

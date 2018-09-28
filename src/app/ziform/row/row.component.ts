@@ -14,7 +14,7 @@ export class RowComponent implements OnInit {
 
   @ViewChild('row', {
     read: ViewContainerRef
-  }) vcRef: ViewContainerRef
+  }) vcRef: ViewContainerRef;
 
   public dataModel : RowModel;
 

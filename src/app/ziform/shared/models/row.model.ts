@@ -1,6 +1,8 @@
 import {ColumnModel} from "./column.model";
+import {SectionModel} from "./section.model";
 
 export class RowModel {
+  private _parent : SectionModel;
   private _id : string;
   private _name : string;
   private _columns : ColumnModel[] = [];
@@ -12,8 +14,16 @@ export class RowModel {
     this._name = data.name;
     for (let i = 0; i < data.columns.length; i++) {
       this._columns.push(new ColumnModel().setData(data.columns[i]));
-    };
+    }
     return this;
+  }
+
+  get parent(): SectionModel {
+    return this._parent;
+  }
+
+  set parent(value: SectionModel) {
+    this._parent = value;
   }
 
   get id(): string {

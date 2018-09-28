@@ -1,4 +1,7 @@
+import {RowModel} from "./row.model";
+
 export class ColumnModel {
+  private _parent : RowModel;
   private _id : string;
   private _name : string;
 
@@ -8,6 +11,14 @@ export class ColumnModel {
     this._id = data.id;
     this._name = data.name;
     return this;
+  }
+
+  get parent(): RowModel {
+    return this._parent;
+  }
+
+  set parent(value: RowModel) {
+    this._parent = value;
   }
 
   get id(): string {

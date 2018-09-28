@@ -1,6 +1,8 @@
 import {RowModel} from "./row.model";
+import {BuilderModel} from "./builder.model";
 
 export class SectionModel {
+  private _parent : BuilderModel;
   private _id : string;
   private _name : string;
   private _rows : RowModel[] = [];
@@ -12,7 +14,7 @@ export class SectionModel {
     this._name = data.name;
     for (let i = 0; i < data.rows.length; i++) {
       this._rows.push(new RowModel().setData(data.rows[i]));
-    };
+    }
     return this;
   }
 
@@ -38,6 +40,14 @@ export class SectionModel {
 
   set rows(value: Array<RowModel>) {
     this._rows = value;
+  }
+
+  get parent(): BuilderModel {
+    return this._parent;
+  }
+
+  set parent(value: BuilderModel) {
+    this._parent = value;
   }
 
   addRow(value : RowModel) : number{
