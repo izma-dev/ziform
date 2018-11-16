@@ -17,88 +17,16 @@ import {Subject, Subscription} from "rxjs/Rx";
 
 export class BuilderComponent implements AfterViewInit, OnDestroy {
 
+  private dataModelKey : string = 'ID#BUILDER#1';
   private dataModel : BuilderModel;
-  public dataSubscription: Subscription;
-  public data : any = {
-    id: 'ID#BUILDER#1',
-    name: 'NAME#BUILDER#1',
-    sections :[{
-      id: 'ID#SECTION#1',
-      name: 'NAME#SECTION#1',
-      rows : [
-        {
-          id: 'ID#ROW#1',
-          name: 'NAME#ROW#1',
-          columns: [
-            {
-              id: 'ID#COLUMN#1',
-              name: 'NAME#COLUMN#1',
-            },
-            {
-              id: 'ID#COLUMN#2',
-              name: 'NAME#COLUMN#2',
-            },
-            {
-              id: 'ID#COLUMN#3',
-              name: 'NAME#COLUMN#3',
-            }
-          ]
-        }
-      ]
-    },
-      {
-        id: 'ID#SECTION#2',
-        name: 'NAME#SECTION#2',
-        rows : [
-          {
-            id: 'ID#ROW#1',
-            name: 'NAME#ROW#1',
-            columns: [
-              {
-                id: 'ID#COLUMN#1',
-                name: 'NAME#COLUMN#1',
-              },
-              {
-                id: 'ID#COLUMN#2',
-                name: 'NAME#COLUMN#2',
-              },
-              {
-                id: 'ID#COLUMN#3',
-                name: 'NAME#COLUMN#3',
-              },
-              {
-                id: 'ID#COLUMN#4',
-                name: 'NAME#COLUMN#4',
-              }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'ID#SECTION#3',
-        name: 'NAME#SECTION#3',
-        rows : [
-          {
-            id: 'ID#ROW#1',
-            name: 'NAME#ROW#1',
-            columns: [
-              {
-                id: 'ID#COLUMN#1',
-                name: 'NAME#COLUMN#1',
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  };
+  public dataModelSubscription: Subscription;
 
   @ViewChild('root', {
     read: ViewContainerRef
   }) viewContainerRef: ViewContainerRef;
 
 
-  private build() {
+  private builderInit() {
     this.changeDetectorRef.detach();
     const factory = this.factoryResolver.resolveComponentFactory(SectionComponent);
     let vcr = this.viewContainerRef;
@@ -112,14 +40,14 @@ export class BuilderComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.build();
+    this.builderInit();
   }
 
   constructor(
       private changeDetectorRef: ChangeDetectorRef,
       private dataService:DataService,
       @Inject(ComponentFactoryResolver) private factoryResolver) {
-      this.dataModel = dataService.builder('ID#BUILDER#1');
+      this.dataModel = dataService.builder(this.dataModelKey);
   }
 
   ngOnDestroy(): void {

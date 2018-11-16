@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import {BuilderModel} from "../models/builder.model";
-import {Subject} from "rxjs/Rx";
 import {ColumnModel} from "../models/column.model";
-import {SectionModel} from "../models/section.model";
-import {RowModel} from "../models/row.model";
+
 
 @Injectable({
   providedIn: 'root'
