@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import {ColumnComponent} from "../column/column.component";
 import {RowModel} from "../shared/models/row.model";
+import {ColumnModel} from "../shared/models/column.model";
 
 @Component({
   selector: 'app-row',
@@ -16,23 +17,39 @@ export class RowComponent implements OnInit {
     read: ViewContainerRef
   }) vcRef: ViewContainerRef;
 
-  public dataModel : RowModel;
+  private dataModel : RowModel;
+  private factory : any;
 
   public settData(dataModel :RowModel){
     this.dataModel = dataModel;
   }
 
-  constructor(public _injector: Injector,@Inject(ComponentFactoryResolver) private factoryResolver) { }
+  constructor(public _injector: Injector,@Inject(ComponentFactoryResolver) private factoryResolver) {
+    this.factory = this.factoryResolver.resolveComponentFactory(ColumnComponent);
+  }
 
-  public insertColumn(){}
+  private insertColumns(l : ColumnModel []){
+    l.forEach(function(value, key) {
+      this.insertColumn(value);
+    },this);
+  }
+
+  private insertColumn(c : ColumnModel){
+    let component = this.factory.create(this.vcRef.injector);
+    component.instance.settData(c);
+    component.instance.editEvent.subscribe(
+      v => {this.editEvent(v)}
+    )
+    this.vcRef.insert(component.hostView);
+  }
+
+  private editEvent(c : ColumnModel){
+    console.log('Edit Event Request');
+    this.insertColumn(c);
+  }
 
   public refresh(){
-    const factory = this.factoryResolver.resolveComponentFactory(ColumnComponent);
-    this.dataModel.columns.forEach(function(value, key) {
-      let component = factory.create(this.injector);
-      component.instance.settData(value);
-      this.insert(component.hostView);
-    },this.vcRef);
+    this.insertColumns(this.dataModel.columns);
   }
 
   ngOnInit() {

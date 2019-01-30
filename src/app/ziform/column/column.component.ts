@@ -2,6 +2,7 @@ import {Component, Host, HostBinding, HostListener, NgModule, OnInit, ViewContai
 import {ShContextMenuModule} from "ng2-right-click-menu";
 import {ColumnModel} from "../shared/models/column.model";
 import {RowComponent} from "../row/row.component";
+import {Observable, Subject} from "rxjs";
 
 
 @NgModule({
@@ -14,6 +15,13 @@ import {RowComponent} from "../row/row.component";
   styleUrls: ['./column.component.css']
 })
 export class ColumnComponent implements OnInit {
+
+  private _editEvent : Subject<ColumnModel> = new Subject();
+
+
+  get editEvent(): Observable<ColumnModel> {
+    return this._editEvent.asObservable();
+  }
 
   public data={
     firstLevel :[
@@ -48,13 +56,18 @@ export class ColumnComponent implements OnInit {
   @HostListener('mouseover') onHover() {
   }
 
-  clickEvent(event){
-    console.log('click executed');
+  clickEvent(ColumnModel){
+    console.log('click event');
   }
 
   onClick(event,id){
     console.log('rightClick on :'+id);
-    debugger
+    let c = new ColumnModel();
+    c.id = "#ID";
+    c.name = "Name";
+    this._editEvent.next(c);
   }
+
+
 
 }
