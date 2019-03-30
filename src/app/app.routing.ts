@@ -7,16 +7,18 @@ export const AppRoutes: Routes = [{
   component: FullComponent,
   children: [{
     path: '',
-    redirectTo: '/builder',
-    pathMatch: 'full'
+    loadChildren: './material-component/material.module#MaterialComponentsModule'
   }, {
     path: '',
-    loadChildren: './material-component/material.module#MaterialComponentsModule'
+    loadChildren: './ziform/ziform.module#ZiformModule'
   }, {
     path: 'starter',
     loadChildren: './starter/starter.module#StarterModule'
   }, {
-    path: '',
+    path: 'builder',
+    redirectTo: './ziform/ziform.module#ZiformModule'
+  }, {
+    path: 'structuror',
     loadChildren: './ziform/ziform.module#ZiformModule'
   }]
 }];

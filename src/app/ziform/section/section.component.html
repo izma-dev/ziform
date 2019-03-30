@@ -1,4 +1,8 @@
 <!-- section -->
-<div class="section">
-  <span  #section></span>
+<div [ngClass]="{
+  'structuror': dataModel.step == 'structuror',
+  'builder': dataModel.step  == 'builder',
+  'section': '1' ==='1'
+  }">
+  <span  #root></span>
 </div>

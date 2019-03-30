@@ -1,9 +1,16 @@
 import {
   Component, ComponentFactoryResolver, Inject, Injector, NgModule, OnInit, ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
+  ChangeDetectorRef,
+  OnDestroy,
+  AfterViewInit
 } from '@angular/core';
 import {RowComponent} from "../row/row.component";
 import {SectionModel} from "../shared/models/section.model";
+import { Subject, Observable } from 'rxjs';
+import { Action } from '../shared/models/action.model';
+import { RowModel } from '../shared/models/row.model';
+import { BaseComponent } from '../base/base.component';
 
 
 @Component({
@@ -12,37 +19,48 @@ import {SectionModel} from "../shared/models/section.model";
   styleUrls: ['./section.component.css']
 })
 
-export class SectionComponent implements OnInit {
+export class SectionComponent extends BaseComponent<SectionModel,RowModel> {
 
-  @ViewChild('section', {
-    read: ViewContainerRef
-  }) vcRef: ViewContainerRef;
-
-  public dataModel : SectionModel;
-
-  constructor(public _injector: Injector,@Inject(ComponentFactoryResolver) private factoryResolver){
-
+  constructor(public _injector: Injector,
+          protected changeDetectorRef: ChangeDetectorRef,
+        @Inject(ComponentFactoryResolver) private factoryResolver){
+    super(changeDetectorRef);
+    this.factory = this.factoryResolver.resolveComponentFactory(RowComponent);
   }
 
-  public insertRow(){
+  public draw(){
+    this.buildView(this.dataModel.children);
   }
 
-  public refresh(){
-    const factory = this.factoryResolver.resolveComponentFactory(RowComponent);
-    this.dataModel.rows.forEach(function(value, key) {
-      let component = factory.create(this.injector);
-      component.instance.settData(value);
-      component.instance.refresh();
-      this.insert(component.hostView);
-    },this.vcRef);
-  }
 
-  public settData(dataModel){
-    this.dataModel = dataModel;
-  }
 
-  ngOnInit() {
-
+  /**
+   * @param action action sent by child component
+   */
+  public treatEvent(a : Action){
+    console.log('Action Recieved : '+ a.action);
+    let s : SectionModel = null;
+    switch(a.action){
+      case 'INSERT_NEW_ROW': 
+        this.buildView([a.element]);
+      break;
+      case 'INSERT_NEW_SECTION': 
+        s = new SectionModel();
+        s.id = "#ID";
+        s.name = "Name";
+        s.children.push(a.element);
+        a.element = s;
+      break;
+      case 'REMOVE_OLD_SECTION': 
+        this.destroyComponent();
+      break;
+      case 'REMOVE_OLD_ROW': 
+      case 'REMOVE_OLD_COLUMN': 
+        if(this.viewContainerRef.length==0)
+        this.destroyComponent();
+      break;
+    }
+    this._editEvent.next(a);
   }
 
 }

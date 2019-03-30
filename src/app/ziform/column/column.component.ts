@@ -1,8 +1,10 @@
-import {Component, Host, HostBinding, HostListener, NgModule, OnInit, ViewContainerRef} from '@angular/core';
+import {Component, Host, HostBinding, HostListener, NgModule, OnInit, ViewContainerRef, ComponentFactoryResolver, Inject, Injector, ChangeDetectorRef, AfterViewInit, OnDestroy} from '@angular/core';
 import {ShContextMenuModule} from "ng2-right-click-menu";
 import {ColumnModel} from "../shared/models/column.model";
 import {RowComponent} from "../row/row.component";
 import {Observable, Subject} from "rxjs";
+import { Action } from '../shared/models/action.model';
+import { BaseComponent } from '../base/base.component';
 
 
 @NgModule({
@@ -14,44 +16,27 @@ import {Observable, Subject} from "rxjs";
   templateUrl: './column.component.html',
   styleUrls: ['./column.component.css']
 })
-export class ColumnComponent implements OnInit {
-
-  private _editEvent : Subject<ColumnModel> = new Subject();
-
-
-  get editEvent(): Observable<ColumnModel> {
-    return this._editEvent.asObservable();
-  }
-
+export class ColumnComponent extends BaseComponent<ColumnModel,ColumnModel> {
+ 
   public data={
     firstLevel :[
-      { label: 'insert', id: 'ID#1' },
-      { label: 'remove', id: 'ID#2'}
+      { label: 'insert', id: 'INSERT' },
+      { label: 'remove', id: 'REMOVE'}
       ],
     secondLevel :{
       insert : [
-      { label: 'new row', id: 'ID#3' },
-      { label: 'new column', id: 'ID#4'},
-      { label: 'new section', id: 'ID#5' }
+      { label: 'new row',     id: 'INSERT_NEW_ROW' },
+      { label: 'new column',  id: 'INSERT_NEW_COLUMN'},
+      { label: 'new section', id: 'INSERT_NEW_SECTION' }
       ],
       remove : [
-        { label: 'selected row', id: 'ID#6' },
-        { label: 'selected column', id: 'ID#7' },
-        { label: 'selected section', id: 'ID#8' }
+        { label: 'selected row', id: 'REMOVE_OLD_ROW' },
+        { label: 'selected column', id: 'REMOVE_OLD_COLUMN' },
+        { label: 'selected section', id: 'REMOVE_OLD_SECTION' }
       ]
     }
   };
 
-  public dataModel : ColumnModel;
-
-  public settData(dataModel :ColumnModel){
-    this.dataModel = dataModel;
-  }
-
-  constructor(public vcRef: ViewContainerRef) { }
-
-  ngOnInit() {
-  }
 
   @HostListener('mouseover') onHover() {
   }
@@ -60,14 +45,42 @@ export class ColumnComponent implements OnInit {
     console.log('click event');
   }
 
+  public draw(){
+    // this.insertColumns(this.dataModel.columns);
+   }
+
   onClick(event,id){
-    console.log('rightClick on :'+id);
-    let c = new ColumnModel();
-    c.id = "#ID";
-    c.name = "Name";
-    this._editEvent.next(c);
+    console.log('Menu Action :'+id);
+    let c : ColumnModel  = null;
+    switch(id){
+      
+      case 'INSERT_NEW_SECTION': 
+      case 'INSERT_NEW_ROW': 
+      case 'INSERT_NEW_COLUMN': 
+        c = new ColumnModel();
+        c.id = "#ID";
+        c.name = "Name";
+      break;
+      case 'REMOVE_OLD_COLUMN': 
+        this.destroyComponent();
+      break;
+    }
+    this._editEvent.next(new Action(id,c));
+  }
+
+  /**
+   * @param action action sent by child component
+   */
+  public treatEvent(action : Action){
+    // TODO
   }
 
 
+    constructor(public _injector: Injector,
+        protected changeDetectorRef: ChangeDetectorRef,
+        @Inject(ComponentFactoryResolver) protected factoryResolver) {
+      super(changeDetectorRef);
+      this.factory = this.factoryResolver.resolveComponentFactory(ColumnComponent);
+    }
 
 }

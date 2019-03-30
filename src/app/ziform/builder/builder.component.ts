@@ -4,9 +4,12 @@ import {
 } from '@angular/core';
 
 import {SectionComponent} from "../section/section.component";
-import {BuilderModel} from "../shared/models/builder.model";
 import {DataService} from "../shared/services/data.service";
 import {Subject, Subscription} from "rxjs/Rx";
+import { SectionModel } from '../shared/models/section.model';
+import { BaseComponent } from '../base/base.component';
+import { Action } from '../shared/models/action.model';
+import { BuilderModel } from '../shared/models/builder.model';
 
 
 @Component({
@@ -15,44 +18,40 @@ import {Subject, Subscription} from "rxjs/Rx";
   styleUrls: ['./builder.component.css']
 })
 
-export class BuilderComponent implements AfterViewInit, OnDestroy {
+export class BuilderComponent extends BaseComponent<BuilderModel,SectionModel>{
+  
+  draw() {
 
-  private dataModelKey : string = 'ID#BUILDER#1';
-  private dataModel : BuilderModel;
+  }
+
+  protected dataModelKey : string = 'ID#BUILDER#1';
+  protected dataInitModelKey : string = 'ID#BUILDER#INIT';
   public dataModelSubscription: Subscription;
 
-  @ViewChild('root', {
-    read: ViewContainerRef
-  }) viewContainerRef: ViewContainerRef;
-
-
-  private builderInit() {
-    this.changeDetectorRef.detach();
-    const factory = this.factoryResolver.resolveComponentFactory(SectionComponent);
-    let vcr = this.viewContainerRef;
-    this.dataModel.sections.forEach(function(value, key) {
-      let component = factory.create(this.injector);
-      component.instance.settData(value);
-      component.instance.refresh();
-      this.insert(component.hostView);
-    },vcr);
-    this.changeDetectorRef.detectChanges();
-  }
-
   ngAfterViewInit() {
-    this.builderInit();
+    this.buildView(this.dataModel.children);
   }
 
+  /**
+   * @param action action sent by child component
+   */
+  public treatEvent(a : Action){
+    console.log('Action Recieved : '+ a.action);
+  }
+
+  
+  /**
+   * Constructor 
+   * @param changeDetectorRef 
+   * @param dataService  Get the structure to build
+   * @param factory 
+   */
   constructor(
-      private changeDetectorRef: ChangeDetectorRef,
-      private dataService:DataService,
+      protected changeDetectorRef: ChangeDetectorRef,
+      private dataService : DataService,
       @Inject(ComponentFactoryResolver) private factoryResolver) {
-      this.dataModel = dataService.builder(this.dataModelKey);
-  }
-
-  ngOnDestroy(): void {
-    if (this.changeDetectorRef) {
-      this.changeDetectorRef.detach();
-    }
+      super(changeDetectorRef);
+      this.dataModel = this.dataService.builder(this.dataModelKey);
+      this.factory = this.factoryResolver.resolveComponentFactory(SectionComponent);
   }
 }

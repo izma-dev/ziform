@@ -1,56 +1,20 @@
 import {RowModel} from "./row.model";
-import {BuilderModel} from "./builder.model";
+import { StructurorModel } from "./structuror.model";
+import { BaseModel } from "./base.model";
 
-export class SectionModel {
-  private _parent : BuilderModel;
-  private _id : string;
-  private _name : string;
-  private _rows : RowModel[] = [];
+export class SectionModel extends BaseModel<StructurorModel,RowModel> {
 
-  constructor(){}
+  constructor(){
+    super(); 
+  }
 
   public setData(data : any) : SectionModel{
-    this._id = data.id;
-    this._name = data.name;
+    this.id = data.id;
+    this.name = data.name;
+    this.step = data.step;
     for (let i = 0; i < data.rows.length; i++) {
-      this._rows.push(new RowModel().setData(data.rows[i]));
+      this.children.push(new RowModel().setData(data.rows[i]));
     }
     return this;
-  }
-
-  get id(): string {
-    return this._id;
-  }
-
-  set id(value: string) {
-    this._id = value;
-  }
-
-  get name(): string {
-    return this._name;
-  }
-
-  set name(value: string) {
-    this._name = value;
-  }
-
-  get rows(): Array<RowModel> {
-    return this._rows;
-  }
-
-  set rows(value: Array<RowModel>) {
-    this._rows = value;
-  }
-
-  get parent(): BuilderModel {
-    return this._parent;
-  }
-
-  set parent(value: BuilderModel) {
-    this._parent = value;
-  }
-
-  addRow(value : RowModel) : number{
-    return this._rows.push(value)
   }
 }

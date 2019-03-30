@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import {BuilderModel} from "../models/builder.model";
 import {ColumnModel} from "../models/column.model";
+import { StructurorModel } from '../models/structuror.model';
+import { BuilderModel } from '../models/builder.model';
 
 
 @Injectable({
@@ -8,8 +9,27 @@ import {ColumnModel} from "../models/column.model";
 })
 export class DataService {
 
-  private _builders : Map<string,BuilderModel>;
-  private dataModel : BuilderModel;
+  private _structurors : Map<string,StructurorModel>;
+  private initData : any = {
+    id: 'ID#BUILDER#INIT',
+    name: 'ID#BUILDER#INIT',
+    sections :[{
+      id: 'ID#SECTION#1',
+      name: 'NAME#SECTION#1',
+      rows : [
+        {
+          id: 'ID#ROW#1',
+          name: 'NAME#ROW#1',
+          columns: [
+            {
+              id: 'ID#COLUMN#1',
+              name: 'NAME#COLUMN#1',
+            }
+          ]
+        }
+      ]
+    }]
+  };
   private data : any = {
     id: 'ID#BUILDER#1',
     name: 'NAME#BUILDER#1',
@@ -85,23 +105,30 @@ export class DataService {
   };
 
   constructor() {
-    this.dataModel = new BuilderModel().setData(this.data);
-    this._builders = new Map<string, BuilderModel>();
-    this._builders.set(this.dataModel.id,this.dataModel);
+    let dataModel = new StructurorModel().setData(this.data);
+    let dataInitModel = new StructurorModel().setData(this.initData);
+
+    this._structurors = new Map<string, StructurorModel>();
+    this._structurors.set(dataModel.id,dataModel);
+    this._structurors.set(dataInitModel.id,dataInitModel);
   }
 
   public addColumn(key:string,column:ColumnModel){
   }
 
+  public structuror(key : string): StructurorModel{
+    return this.structurors.get(key);
+  }
+
   public builder(key : string): BuilderModel{
-    return this.builders.get('ID#BUILDER#1');
+    return new BuilderModel().setData(this.data);;
   }
 
-  get builders(): Map<string, BuilderModel> {
-    return this._builders;
+  get structurors(): Map<string, StructurorModel> {
+    return this._structurors;
   }
 
-  set builders(value: Map<string, BuilderModel>) {
-    this._builders = value;
+  set structurors(value: Map<string, StructurorModel>) {
+    this._structurors = value;
   }
 }
