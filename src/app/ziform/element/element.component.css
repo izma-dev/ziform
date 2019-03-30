@@ -1,0 +1,15 @@
+
+:host{
+    flex: 1 1 auto;
+  }
+  .element{
+  
+    min-height:10vh;
+    border: 2px dashed #00000000;
+    margin: 4px;
+    padding: 4px;
+  }
+  
+  .element:hover {
+    border: 2px solid #797979;
+  }
